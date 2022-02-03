@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { setUserSession } from '../../../Utils/Common'
 import {
   CButton,
   CCard,
@@ -16,12 +18,36 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 
-const Login = () => {
+const Login = (props) => {
+  const [loading, setLoading] = useState(false)
+  const username = useFormInput('')
+  const password = useFormInput('')
+  const [error, setError] = useState(null)
+
+  const handleLogin = () => {
+    setError(null)
+    setLoading(true)
+    axios
+      .post('http://localhost:4000/users/signin', {
+        username: username.value,
+        password: password.value,
+      })
+      .then((response) => {
+        setLoading(false)
+        setUserSession(response.data.token, response.data.user)
+        props.history.push('/dashboard')
+      })
+      .catch((error) => {
+        setLoading(false)
+        if (error.response.status === 401) setError(error.response.data.message)
+        else setError('Something went wrong. Please try again later.')
+      })
+  }
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
         <CRow className="justify-content-center">
-          <CCol md={8}>
+          <CCol md={5}>
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
@@ -59,7 +85,7 @@ const Login = () => {
                   </CForm>
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
+              {/* <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
                 <CCardBody className="text-center">
                   <div>
                     <h2>Sign up</h2>
@@ -74,13 +100,25 @@ const Login = () => {
                     </Link>
                   </div>
                 </CCardBody>
-              </CCard>
+              </CCard> */}
             </CCardGroup>
           </CCol>
         </CRow>
       </CContainer>
     </div>
   )
+}
+
+const useFormInput = (initialValue) => {
+  const [value, setValue] = useState(initialValue)
+
+  const handleChange = (e) => {
+    setValue(e.target.value)
+  }
+  return {
+    value,
+    onChange: handleChange,
+  }
 }
 
 export default Login
