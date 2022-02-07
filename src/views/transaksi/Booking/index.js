@@ -49,30 +49,31 @@ class ListBooking extends Component {
     return (
       <CRow>
         <CCol xs={12}>
-          <DocsCallout name="Table" href="components/table" />
-        </CCol>
-        <CCol xs={12}>
           <CCard className="mb-4">
             <CCardHeader>
-              <strong>React Table</strong> <small>Basic example</small>
+              <strong>LIST BOOKING PASIEN</strong> <small></small>
             </CCardHeader>
             <CCardBody>
               <CTable>
                 <CTableHead>
                   <CTableRow>
-                    <CTableHeaderCell scope="col">ID</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">KODE BOOKING</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">NO RM</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">TANGGAL</CTableHeaderCell>
                     <CTableHeaderCell scope="col">NAMA</CTableHeaderCell>
                     <CTableHeaderCell scope="col">ALAMAT</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">HEADING</CTableHeaderCell>
+                    <CTableHeaderCell scope="col"></CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
                   {this.state.bookings.map((booking) => (
                     <CTableRow key={booking.FS_KD_TRS}>
-                      <CTableHeaderCell scope="row">{booking.FS_KD_TRS}</CTableHeaderCell>
+                      <CTableDataCell>{booking.FS_KD_TRS}</CTableDataCell>
+                      <CTableDataCell>{booking.FS_MR}</CTableDataCell>
+                      <CTableDataCell>{booking.FD_TGL_TRS}</CTableDataCell>
                       <CTableDataCell>{booking.FS_NM_PASIEN_BOOK}</CTableDataCell>
                       <CTableDataCell>{booking.FS_ALM_PASIEN_BOOK}</CTableDataCell>
-                      <CTableDataCell>{booking.FS_KD_TRS}</CTableDataCell>
+                      <CTableDataCell></CTableDataCell>
                     </CTableRow>
                   ))}
                 </CTableBody>

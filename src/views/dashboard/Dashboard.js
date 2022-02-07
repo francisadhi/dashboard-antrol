@@ -309,7 +309,7 @@ const Dashboard = () => {
           </CRow>
         </CCardFooter>
       </CCard>
-
+      {/* 
       <WidgetsBrand withCharts />
 
       <CRow>
@@ -455,7 +455,7 @@ const Dashboard = () => {
             </CCardBody>
           </CCard>
         </CCol>
-      </CRow>
+      </CRow> */}
     </>
   )
 }
