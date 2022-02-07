@@ -8,7 +8,7 @@ export const PublicRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        !getToken() ? <Component {...props} /> : <Redirect to={{ pathname: '/' }} />
+        !getToken() ? <Component {...props} /> : <Redirect to={{ pathname: '/login' }} />
       }
     />
   )
