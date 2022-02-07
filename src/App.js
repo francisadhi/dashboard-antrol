@@ -1,11 +1,14 @@
 import React, { Component, Suspense } from 'react'
-import { Router, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
 import './scss/style.scss'
 import { connect } from 'react-redux'
 import { history } from './_helpers/history'
 import { alertActions } from './_actions'
 import { PrivateRoute } from './Utils/PrivateRoute'
 import { PublicRoute } from './Utils/PublicRoute'
+import Page404 from './views/pages/page404/Page404'
+import LoadingPage from './components/LoadingPage'
+import Dashboard from './views/dashboard/Dashboard'
 
 // const loading = (
 //   <div className="pt-3 text-center">
@@ -53,9 +56,14 @@ class App extends React.Component {
       <Router history={history}>
         <Switch>
           <PrivateRoute exact path="/" component={DefaultLayout} />
-          <Suspense fallback={<div>Loading Component</div>}>
-            {<PublicRoute path="/login" component={Login} />}
+          <Suspense fallback={<LoadingPage />}>
+            <Switch>
+              <PublicRoute path="/login" component={Login} />
+              <PublicRoute path="/*" component={Page404} />
+            </Switch>
           </Suspense>
+
+          {/* <PrivateRoute path="/dashboard" component={Dashboard} /> */}
 
           {/* <Route path="/register" component={RegisterPage} /> */}
           <Redirect from="*" to="/" />
