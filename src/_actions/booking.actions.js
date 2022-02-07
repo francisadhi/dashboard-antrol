@@ -6,16 +6,15 @@ import { bookingService } from '../_services'
 // import React from 'react'
 
 export const bookingActions = {
-  // fetchLogin,
   getAll,
 }
 
 function getAll() {
   return (dispatch) => {
-    bookingService.getAll().then((bookings) => dispatch(success(bookings)))
+    bookingService.getAll().then((booking) => dispatch(success(booking)))
   }
 
-  function success(bookings) {
-    return { type: bookingConstants.BOOKING_GETALL, bookings }
+  function success(booking) {
+    return { type: bookingConstants.BOOKING_GETALL, booking }
   }
 }

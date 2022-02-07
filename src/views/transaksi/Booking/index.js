@@ -16,15 +16,36 @@ import {
 import { DocsCallout, DocsExample } from 'src/components'
 import { bookingActions } from '../../../_actions'
 import { connect } from 'react-redux'
+import axios from 'axios'
 
 class ListBooking extends Component {
-  constructor(props) {
-    super(props)
+  // constructor(props) {
+  //   super(props)
 
-    this.props.getAll()
+  //   this.props.getAll()
+  // }
+
+  constructor() {
+    super()
+    this.state = {
+      bookings: [],
+    }
   }
+
+  componentDidMount() {
+    axios
+      .get(`http://192.168.0.154:3001/api/bookings`)
+      // API.get(`users/`)
+      .then((res) => {
+        const bookings = res.data
+        this.setState({ bookings })
+        console.log(bookings)
+      })
+  }
+
   render() {
-    const { bookings } = this.props
+    //const { booking } = this.props
+    //console.log(bookings)
     return (
       <CRow>
         <CCol xs={12}>
@@ -39,18 +60,18 @@ class ListBooking extends Component {
               <CTable>
                 <CTableHead>
                   <CTableRow>
-                    <CTableHeaderCell scope="col">#</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Class</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Heading</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Heading</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">ID</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">NAMA</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">ALAMAT</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">HEADING</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                  {this.props.bookings.map((booking) => (
-                    <CTableRow key={booking.toString()}>
+                  {this.state.bookings.map((booking) => (
+                    <CTableRow key={booking.FS_KD_TRS}>
                       <CTableHeaderCell scope="row">{booking.FS_KD_TRS}</CTableHeaderCell>
-                      <CTableDataCell>{booking.FS_KD_TRS}</CTableDataCell>
-                      <CTableDataCell>{booking.FS_KD_TRS}</CTableDataCell>
+                      <CTableDataCell>{booking.FS_NM_PASIEN_BOOK}</CTableDataCell>
+                      <CTableDataCell>{booking.FS_ALM_PASIEN_BOOK}</CTableDataCell>
                       <CTableDataCell>{booking.FS_KD_TRS}</CTableDataCell>
                     </CTableRow>
                   ))}
@@ -64,13 +85,15 @@ class ListBooking extends Component {
   }
 }
 
-function mapState(state) {
-  const { bookings } = state
-  return { bookings }
-}
+// function mapState(state) {
+//   const { booking } = state
+//   console.log(booking)
+//   return { booking }
+// }
 
-const actionCreators = {
-  getAll: bookingActions.getAll,
-}
+// const actionCreators = {
+//   getAll: bookingActions.getAll,
+// }
 
-export default ListBooking = connect(mapState, actionCreators)(ListBooking)
+//export default ListBooking = connect(mapState, actionCreators)(ListBooking)
+export default ListBooking
