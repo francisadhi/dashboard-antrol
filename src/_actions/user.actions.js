@@ -2,8 +2,11 @@ import { userConstants } from '../_constants'
 import { userService } from '../_services'
 import { alertActions } from '../_actions'
 import { history } from '../_helpers'
+import axios from 'axios'
+// import React from 'react'
 
 export const userActions = {
+  // fetchLogin,
   login,
   logout,
   register,
@@ -11,9 +14,25 @@ export const userActions = {
   delete: _delete,
 }
 
-function login(username, password) {
+// export function fetchLogin(username, password) {
+//   return (dispatch) => {
+//     axios
+//       .post('http://192.168.0.154:3001/api/login2', { email: username, password: password })
+//       .then((response) => {
+//         // console.log(response.data.data)
+//         dispatch({
+//           type: userConstants.LOGIN_REQUEST,
+//           payload: {
+//             userData: response,
+//           },
+//         })
+//       })
+//   }
+// }
+
+export function login(username, password) {
   return (dispatch) => {
-    dispatch(request({ username }))
+    // dispatch(request({ username }))
 
     userService.login(username, password).then(
       (user) => {

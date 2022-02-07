@@ -11,26 +11,25 @@ export const userService = {
   delete: _delete,
 }
 
-function login(username, password) {
+async function login(username, password) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ email: username, password: password }),
   }
 
-  return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
-    .then(handleResponse)
-    .then((user) => {
-      // store user details and jwt token in local storage to keep user logged in between page refreshes
-      localStorage.setItem('user', JSON.stringify(user))
-
-      return user
-    })
+  const response = await fetch(`http://192.168.0.154:3001/api/login2`, requestOptions)
+  const user = await handleResponse(response)
+  // store user details and jwt token in local storage to keep user logged in between page refreshes
+  localStorage.setItem('user', JSON.stringify(user.response.user))
+  localStorage.setItem('token', user.response.token)
+  return user
 }
 
 function logout() {
   // remove user from local storage to log user out
   localStorage.removeItem('user')
+  localStorage.removeItem('token')
 }
 
 function getAll() {

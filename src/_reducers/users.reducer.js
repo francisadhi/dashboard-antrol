@@ -2,6 +2,10 @@ import { userConstants } from '../_constants'
 
 export function users(state = {}, action) {
   switch (action.type) {
+    // case userConstants.LOGIN_REQUEST:
+    //   return {
+    //     userData: action.payload.userData,
+    //   }
     case userConstants.GETALL_REQUEST:
       return {
         loading: true,
