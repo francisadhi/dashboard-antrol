@@ -15,7 +15,7 @@ import {
 } from '@coreui/react'
 import { DocsCallout, DocsExample } from 'src/components'
 
-const ListPendaftaran = () => {
+const AllQueues = () => {
   return (
     <CRow>
       {/* <CCol xs={12}>
@@ -34,4 +34,4 @@ const ListPendaftaran = () => {
   )
 }
 
-export default ListPendaftaran
+export default AllQueues

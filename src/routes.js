@@ -58,6 +58,9 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const DaftarPasien = React.lazy(() => import('./views/pasien/DaftarPasien'))
 const TambahPasien = React.lazy(() => import('./views/pasien/TambahPasien'))
 
+const DaftarAntrian = React.lazy(() => import('./views/antrian/DaftarAntrian'))
+const Pemanggil = React.lazy(() => import('./views/antrian/Pemanggil'))
+
 const Jadwal = React.lazy(() => import('./views/master/JadwalDokter'))
 const Layanan = React.lazy(() => import('./views/master/Layanan'))
 
@@ -119,6 +122,9 @@ const routes = [
   { path: '/pasien', name: 'Pasien', component: Pasien, exact: true },
   { path: '/pasien/list-pasien', name: 'Daftar Pasien', component: DaftarPasien },
   { path: '/pasien/tambah-pasien', name: 'Tambah Pasien', component: TambahPasien },
+  { path: '/antrian', name: 'Antrian', component: Colors, exact: true },
+  { path: '/antrian/pemanggil-antrian', name: 'Pemanggil', component: Pemanggil },
+  { path: '/antrian/daftar-antrian', name: 'Daftar Antrian', component: DaftarAntrian },
 ]
 
 export default routes

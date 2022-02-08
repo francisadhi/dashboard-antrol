@@ -84,6 +84,29 @@ const _nav = [
       },
     ],
   },
+  {
+    component: CNavGroup,
+    name: 'Antrian',
+    to: '/antrian',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      // {
+      //   component: CNavItem,
+      //   name: 'Accordion',
+      //   to: '/base/accordion',
+      // },
+      {
+        component: CNavItem,
+        name: 'Pemanggil Antrian',
+        to: '/antrian/pemanggil-antrian',
+      },
+      {
+        component: CNavItem,
+        name: 'Daftar Antrian',
+        to: '/antrian/daftar-antrian',
+      },
+    ],
+  },
 ]
 // const _nav = [
 //   {

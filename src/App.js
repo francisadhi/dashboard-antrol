@@ -82,7 +82,7 @@
 // // export default App
 
 import React, { Component, Suspense } from 'react'
-import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Redirect, Route } from 'react-router-dom'
 import './scss/style.scss'
 import { connect } from 'react-redux'
 import { history } from './_helpers/history'
@@ -144,6 +144,7 @@ class App extends React.Component {
           <Suspense fallback={<LoadingPage />}>
             <Switch>
               <PublicRoute path="/login" component={Login} />
+              {/* <Route path="/*" component={Page404} /> */}
               <PrivateRoute path="/" component={DefaultLayout} />
             </Switch>
             {/* <Switch>

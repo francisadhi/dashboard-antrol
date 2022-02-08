@@ -24,6 +24,7 @@ class ListBooking extends Component {
 
   //   this.props.getAll()
   // }
+  intervalID
 
   constructor() {
     super()
@@ -33,14 +34,26 @@ class ListBooking extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`http://192.168.0.154:3001/api/bookings`)
-      // API.get(`users/`)
-      .then((res) => {
-        const bookings = res.data
-        this.setState({ bookings })
-        console.log(bookings)
-      })
+    this.intervalID = setInterval(
+      axios
+        .get(`http://192.168.0.154:3001/api/bookings`)
+        // API.get(`users/`)
+        .then((res) => {
+          const bookings = res.data
+          this.setState({ bookings })
+          console.log(bookings)
+        }),
+      1000,
+    )
+    // window.location.reload(true)
+  }
+
+  componentWillUnmount() {
+    /*
+      stop getData() from continuing to run even
+      after unmounting this component
+    */
+    clearInterval(this.intervalID)
   }
 
   render() {
