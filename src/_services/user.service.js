@@ -19,7 +19,7 @@ async function login(username, password) {
   }
 
   // const response = await fetch(`http://36.92.135.163:3001/api/login2`, requestOptions)
-  const response = await fetch(`http://192.168.0.154:3001/api/login2`, requestOptions)
+  const response = await fetch(`http://36.92.135.163:3001/api/login2`, requestOptions)
   const user = await handleResponse(response)
   // store user details and jwt token in local storage to keep user logged in between page refreshes
   localStorage.setItem('user', JSON.stringify(user.response.user))

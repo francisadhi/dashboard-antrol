@@ -12,7 +12,7 @@ function getAll() {
   }
 
   // return fetch(`http://36.92.135.163:3001/api/bookings`, requestOptions).then(handleResponse)
-  return fetch(`http://192.168.0.154:3001/api/bookings`, requestOptions).then(handleResponse)
+  return fetch(`http://36.92.135.163:3001/api/bookings`, requestOptions).then(handleResponse)
 }
 
 function handleResponse(response) {
