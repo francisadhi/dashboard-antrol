@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {
+  CButton,
   CCard,
   CCardBody,
   CCardHeader,
@@ -24,7 +25,6 @@ class ListBooking extends Component {
 
   //   this.props.getAll()
   // }
-  intervalID
 
   constructor() {
     super()
@@ -34,9 +34,9 @@ class ListBooking extends Component {
   }
 
   componentDidMount() {
-    this.intervalID = setInterval(
+    setInterval(
       axios
-        .get(`http://192.168.0.154:3001/api/bookings`)
+        .get(`http://36.92.135.163:3001/api/bookings`)
         // API.get(`users/`)
         .then((res) => {
           const bookings = res.data
@@ -46,14 +46,6 @@ class ListBooking extends Component {
       1000,
     )
     // window.location.reload(true)
-  }
-
-  componentWillUnmount() {
-    /*
-      stop getData() from continuing to run even
-      after unmounting this component
-    */
-    clearInterval(this.intervalID)
   }
 
   render() {
@@ -75,7 +67,7 @@ class ListBooking extends Component {
                     <CTableHeaderCell scope="col">TANGGAL</CTableHeaderCell>
                     <CTableHeaderCell scope="col">NAMA</CTableHeaderCell>
                     <CTableHeaderCell scope="col">ALAMAT</CTableHeaderCell>
-                    <CTableHeaderCell scope="col"></CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Action</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
@@ -86,7 +78,11 @@ class ListBooking extends Component {
                       <CTableDataCell>{booking.FD_TGL_TRS}</CTableDataCell>
                       <CTableDataCell>{booking.FS_NM_PASIEN_BOOK}</CTableDataCell>
                       <CTableDataCell>{booking.FS_ALM_PASIEN_BOOK}</CTableDataCell>
-                      <CTableDataCell></CTableDataCell>
+                      <CTableDataCell>
+                        <CButton color="info" shape="rounded-pill">
+                          Proses
+                        </CButton>
+                      </CTableDataCell>
                     </CTableRow>
                   ))}
                 </CTableBody>
