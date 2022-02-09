@@ -102,7 +102,7 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: 'Daftar Antrian',
+        name: 'Daftar Antrian Poli',
         to: '/antrian/daftar-antrian',
       },
     ],

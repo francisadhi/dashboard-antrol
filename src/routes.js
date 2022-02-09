@@ -124,7 +124,7 @@ const routes = [
   { path: '/pasien/tambah-pasien', name: 'Tambah Pasien', component: TambahPasien },
   { path: '/antrian', name: 'Antrian', component: Colors, exact: true },
   { path: '/antrian/pemanggil-antrian', name: 'Pemanggil', component: Pemanggil },
-  { path: '/antrian/daftar-antrian', name: 'Daftar Antrian', component: DaftarAntrian },
+  { path: '/antrian/daftar-antrian', name: 'Daftar Antrian Poli', component: DaftarAntrian },
 ]
 
 export default routes
