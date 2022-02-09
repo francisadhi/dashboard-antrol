@@ -13,6 +13,11 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CNav,
+  CNavItem,
+  CNavLink,
+  CTabPane,
+  CTabContent,
 } from '@coreui/react'
 import { DocsCallout, DocsExample } from 'src/components'
 import { bookingActions } from '../../../_actions'
@@ -31,6 +36,7 @@ class ListBooking extends Component {
     super()
     this.state = {
       bookings: [],
+      activeKey: 1,
     }
   }
 
@@ -52,6 +58,7 @@ class ListBooking extends Component {
   render() {
     //const { booking } = this.props
     //console.log(bookings)
+    //const [activeKey, setActiveKey] = useState(1)
     return (
       <CRow>
         <CCol xs={12}>
@@ -60,34 +67,84 @@ class ListBooking extends Component {
               <strong>LIST BOOKING PASIEN</strong> <small></small>
             </CCardHeader>
             <CCardBody>
-              <CTable>
-                <CTableHead>
-                  <CTableRow>
-                    <CTableHeaderCell scope="col">KODE BOOKING</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">NO RM</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">TANGGAL</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">NAMA</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">ALAMAT</CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Action</CTableHeaderCell>
-                  </CTableRow>
-                </CTableHead>
-                <CTableBody>
-                  {this.state.bookings.map((booking) => (
-                    <CTableRow key={booking.FS_KD_TRS}>
-                      <CTableDataCell>{booking.FS_KD_TRS}</CTableDataCell>
-                      <CTableDataCell>{booking.FS_MR}</CTableDataCell>
-                      <CTableDataCell>{booking.FD_TGL_TRS}</CTableDataCell>
-                      <CTableDataCell>{booking.FS_NM_PASIEN_BOOK}</CTableDataCell>
-                      <CTableDataCell>{booking.FS_ALM_PASIEN_BOOK}</CTableDataCell>
-                      <CTableDataCell>
-                        <CButton color="info" shape="rounded-pill">
-                          Proses
-                        </CButton>
-                      </CTableDataCell>
-                    </CTableRow>
-                  ))}
-                </CTableBody>
-              </CTable>
+              <CNav variant="tabs">
+                <CNavItem>
+                  <CNavLink
+                    href="#"
+                    active={this.state.activeKey === 1}
+                    onClick={() => this.setState({ activeKey: 1 })}
+                  >
+                    Booking Masuk
+                  </CNavLink>
+                </CNavItem>
+                <CNavItem>
+                  <CNavLink
+                    href="#"
+                    active={this.state.activeKey === 2}
+                    onClick={() => this.setState({ activeKey: 2 })}
+                  >
+                    Booking on Proccess
+                  </CNavLink>
+                </CNavItem>
+                <CNavItem>
+                  <CNavLink
+                    href="#"
+                    active={this.state.activeKey === 3}
+                    onClick={() => this.setState({ activeKey: 3 })}
+                  >
+                    Booking Selesai
+                  </CNavLink>
+                </CNavItem>
+              </CNav>
+              <CTabContent>
+                <CTabPane visible={this.state.activeKey === 1}>
+                  <CCard>
+                    <CCardBody></CCardBody>
+                    <CCardBody>
+                      <CTable>
+                        <CTableHead color="dark">
+                          <CTableRow>
+                            <CTableHeaderCell scope="col">KODE BOOKING</CTableHeaderCell>
+                            <CTableHeaderCell scope="col">NO RM</CTableHeaderCell>
+                            <CTableHeaderCell scope="col">TANGGAL</CTableHeaderCell>
+                            <CTableHeaderCell scope="col">NAMA</CTableHeaderCell>
+                            <CTableHeaderCell scope="col">ALAMAT</CTableHeaderCell>
+                            <CTableHeaderCell scope="col">Action</CTableHeaderCell>
+                          </CTableRow>
+                        </CTableHead>
+                        <CTableBody>
+                          {this.state.bookings.map((booking) => (
+                            <CTableRow key={booking.FS_KD_TRS}>
+                              <CTableDataCell scope="row">{booking.FS_KD_TRS}</CTableDataCell>
+                              <CTableDataCell>{booking.FS_MR}</CTableDataCell>
+                              <CTableDataCell>{booking.FD_TGL_TRS}</CTableDataCell>
+                              <CTableDataCell>{booking.FS_NM_PASIEN_BOOK}</CTableDataCell>
+                              <CTableDataCell>{booking.FS_ALM_PASIEN_BOOK}</CTableDataCell>
+                              <CTableDataCell>
+                                <CButton color="info" shape="rounded-pill">
+                                  Proses
+                                </CButton>
+                              </CTableDataCell>
+                            </CTableRow>
+                          ))}
+                        </CTableBody>
+                      </CTable>
+                    </CCardBody>
+                  </CCard>
+                </CTabPane>
+                <CTabPane visible={this.state.activeKey === 2}>
+                  <CCardBody></CCardBody>
+                  <CCardBody>
+                    <CCard>Booking on Proccess ada disini......</CCard>
+                  </CCardBody>
+                </CTabPane>
+                <CTabPane visible={this.state.activeKey === 3}>
+                  <CCardBody></CCardBody>
+                  <CCardBody>
+                    <CCard>Booking selesai ada disini......</CCard>
+                  </CCardBody>
+                </CTabPane>
+              </CTabContent>
             </CCardBody>
           </CCard>
         </CCol>
