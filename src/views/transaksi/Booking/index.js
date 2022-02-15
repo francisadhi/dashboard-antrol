@@ -8,7 +8,6 @@ import {
   CRow,
   CTable,
   CTableBody,
-  CTableCaption,
   CTableDataCell,
   CTableHead,
   CTableHeaderCell,
@@ -19,46 +18,121 @@ import {
   CTabPane,
   CTabContent,
 } from '@coreui/react'
-import { DocsCallout, DocsExample } from 'src/components'
-import { bookingActions } from '../../../_actions'
+import { getBook } from '../../../_actions'
 import { connect } from 'react-redux'
-import axios from 'axios'
+//import PropTypes from 'prop-types'
+//import axios from 'axios'
+import Pagination from '../../../components/Pagination'
+//import { bookings } from 'src/_reducers/booking.reducer'
+//import { DocsCallout, DocsExample } from 'src/components'
+
 //test di dev
 
 class ListBooking extends Component {
-  // constructor(props) {
-  //   super(props)
-
-  //   this.props.getAll()
-  // }
-
   constructor() {
     super()
     this.state = {
-      bookings: [],
+      //bookings: [],
       activeKey: 1,
+      currentPage: 1,
+      totalRecords: '',
+      totalPages: '',
+      pageLimit: '',
+      currentPage: '',
+      startIndex: '',
+      endIndex: '',
     }
   }
 
   componentDidMount() {
-    setInterval(
-      axios
-        .get(`http://36.92.135.163:3001/api/bookings`)
-        // API.get(`users/`)
-        .then((res) => {
-          const bookings = res.data
-          this.setState({ bookings })
-          console.log(bookings)
-        }),
-      1000,
-    )
+    this.props.getBook()
+  }
+  //======================================================================================
+  /*componentDidMount() {
+    //setInterval(
+    //let newBooking = []
+    axios
+      .get(`http://36.92.135.163:3001/api/bookings`)
+      // API.get(`users/`)
+      .then((res) => {
+        const bookings = res.data
+        //newBooking = res.data
+        this.setState({ bookings })
+        //this.setState({ bookings: [newBooking, ...this.state.bookings] })
+        //console.log(this.state.bookings)
+      })
+    //====================
+    
+    //================
+    //1000,
+    //)
+    //this.interval = setInterval(() => this.setState(this.state.bookings), 1000)
     // window.location.reload(true)
+  }
+  */
+  // componentDidMount() {
+  //   this.interval = setInterval(() => this.setState({ bookings: this.bookingLst() }), 1000)
+  // }
+
+  // componentWillUnmount() {
+  //   clearInterval(this.interval)
+  // }
+
+  // bookingList() {
+  //   let booking = []
+
+  //   axios
+  //     .get(`http://36.92.135.163:3001/api/bookings`)
+  //     API.get(`users/`)
+  //     .then((res) => {
+  //       const bookings = res.data
+  //       booking = res.data
+  //       this.setState({ bookings })
+  //       this.setState({bookings: [newBooking, ...bookings})
+  //       console.log(bookings)
+  //     })
+
+  //   return booking
+  // }
+  //============================================================================
+  showBooking = (bookings) => {
+    var result = null
+    //console.log(bookings)
+    if (bookings.length > 0) {
+      return bookings.map((booking) => (
+        <CTableRow key={booking.FS_KD_TRS}>
+          <CTableDataCell scope="row">{booking.FS_KD_TRS}</CTableDataCell>
+          <CTableDataCell>{booking.FS_MR}</CTableDataCell>
+          <CTableDataCell>{booking.FD_TGL_TRS}</CTableDataCell>
+          <CTableDataCell>{booking.FS_NM_PASIEN_BOOK}</CTableDataCell>
+          <CTableDataCell>{booking.FS_ALM_PASIEN_BOOK}</CTableDataCell>
+          <CTableDataCell>
+            <CButton color="info" shape="rounded-pill">
+              Proses
+            </CButton>
+          </CTableDataCell>
+        </CTableRow>
+      ))
+    }
+    return result
+  }
+
+  onChangePage = (data) => {
+    this.setState({
+      pageLimit: data.pageLimit,
+      totalPages: data.totalPages,
+      currentPage: data.page,
+      startIndex: data.startIndex,
+      endIndex: data.endIndex,
+    })
   }
 
   render() {
-    //const { booking } = this.props
-    //console.log(bookings)
-    //const [activeKey, setActiveKey] = useState(1)
+    var { bookings } = this.props
+    var { totalPages, currentPage, pageLimit, startIndex, endIndex } = this.state
+    var rowsPerPage = []
+    rowsPerPage = bookings.slice(startIndex, endIndex + 1)
+
     return (
       <CRow>
         <CCol xs={12}>
@@ -83,7 +157,7 @@ class ListBooking extends Component {
                     active={this.state.activeKey === 2}
                     onClick={() => this.setState({ activeKey: 2 })}
                   >
-                    Booking on Proccess
+                    Booking on Process
                   </CNavLink>
                 </CNavItem>
                 <CNavItem>
@@ -99,9 +173,10 @@ class ListBooking extends Component {
               <CTabContent>
                 <CTabPane visible={this.state.activeKey === 1}>
                   <CCard>
-                    <CCardBody></CCardBody>
+                    <br></br>
+
                     <CCardBody>
-                      <CTable>
+                      <CTable striped>
                         <CTableHead color="dark">
                           <CTableRow>
                             <CTableHeaderCell scope="col">KODE BOOKING</CTableHeaderCell>
@@ -112,30 +187,29 @@ class ListBooking extends Component {
                             <CTableHeaderCell scope="col">Action</CTableHeaderCell>
                           </CTableRow>
                         </CTableHead>
-                        <CTableBody>
-                          {this.state.bookings.map((booking) => (
-                            <CTableRow key={booking.FS_KD_TRS}>
-                              <CTableDataCell scope="row">{booking.FS_KD_TRS}</CTableDataCell>
-                              <CTableDataCell>{booking.FS_MR}</CTableDataCell>
-                              <CTableDataCell>{booking.FD_TGL_TRS}</CTableDataCell>
-                              <CTableDataCell>{booking.FS_NM_PASIEN_BOOK}</CTableDataCell>
-                              <CTableDataCell>{booking.FS_ALM_PASIEN_BOOK}</CTableDataCell>
-                              <CTableDataCell>
-                                <CButton color="info" shape="rounded-pill">
-                                  Proses
-                                </CButton>
-                              </CTableDataCell>
-                            </CTableRow>
-                          ))}
-                        </CTableBody>
+                        <CTableBody>{this.showBooking(rowsPerPage)}</CTableBody>
                       </CTable>
+                      <small>
+                        Showing {currentPage} to {totalPages} of {bookings.length} entries
+                      </small>
+                      <br></br>
+                      <br></br>
+                      {
+                        <Pagination
+                          totalRecords={bookings.length}
+                          pageLimit={pageLimit || 5}
+                          initialPage={1}
+                          pagesToShow={5}
+                          onChangePage={this.onChangePage}
+                        />
+                      }
                     </CCardBody>
                   </CCard>
                 </CTabPane>
                 <CTabPane visible={this.state.activeKey === 2}>
                   <CCardBody></CCardBody>
                   <CCardBody>
-                    <CCard>Booking on Proccess ada disini......</CCard>
+                    <CCard>Booking on Process ada disini......</CCard>
                   </CCardBody>
                 </CTabPane>
                 <CTabPane visible={this.state.activeKey === 3}>
@@ -152,7 +226,7 @@ class ListBooking extends Component {
     )
   }
 }
-
+//==========================
 // function mapState(state) {
 //   const { booking } = state
 //   console.log(booking)
@@ -163,5 +237,25 @@ class ListBooking extends Component {
 //   getAll: bookingActions.getAll,
 // }
 
-//export default ListBooking = connect(mapState, actionCreators)(ListBooking)
+// export default ListBooking = connect(mapState, actionCreators)(ListBooking)
+//export default ListBooking
+//=========================
+
+const mapStateToProps = (state) => {
+  return {
+    bookings: state.bookings.booking,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  getBook: () => dispatch(getBook()),
+  //magicButton: (bibleId) => dispatch(fetchbiblebooks(bibleId),fetchbible(bibleId)),
+})
+
+// ListBooking.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// }
+
+ListBooking = connect(mapStateToProps, mapDispatchToProps)(ListBooking)
+
 export default ListBooking

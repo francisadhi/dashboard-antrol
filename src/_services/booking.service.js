@@ -8,7 +8,7 @@ export const bookingService = {
 function getAll() {
   const requestOptions = {
     method: 'GET',
-    headers: authHeader(),
+    //headers: authHeader(),
   }
 
   // return fetch(`http://36.92.135.163:3001/api/bookings`, requestOptions).then(handleResponse)
