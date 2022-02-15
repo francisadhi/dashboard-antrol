@@ -20,70 +20,65 @@ import {
   CTableHeaderCell,
   CTableRow,
   CHeader,
+  CWidgetStatsF,
+  CLink,
+  CCardGroup,
+  CHeaderDivider,
 } from '@coreui/react'
+import CIcon from '@coreui/icons-react'
+import { cilChartPie, cilArrowRight } from '@coreui/icons'
 import { DocsCallout, DocsExample } from 'src/components'
 
 const Pemanggil = () => {
   return (
     <div>
-      <CRow>
-        {/* <CCol xs={12}>
-        <DocsCallout name="Table" href="components/table" />
-      </CCol> */}
-        <CCol xs={12}>
-          <CCard className="mb-4">
-            <CCardHeader>
-              <CContainer>
-                <div className="d-flex justify-content-center">
-                  <div className="mx-auto">
-                    <h4>
-                      <small>Antrian saat ini</small>
-                    </h4>
-                  </div>
-                </div>
-                <div className="d-flex justify-content-center">
-                  <div className="mx-auto">
-                    <h1>
-                      <strong>7</strong>
-                    </h1>
-                  </div>
-                </div>
-              </CContainer>
-            </CCardHeader>
-            <CCardBody>
-              <CRow>
-                <CCol xs={12}>
-                  <div className="d-flex justify-content-center">
-                    <CButton color="info" size="lg">
-                      Panggil lagi
-                    </CButton>
-                  </div>
-                </CCol>
-              </CRow>
-            </CCardBody>
-          </CCard>
-        </CCol>
-      </CRow>
-      <CCard>
-        <CCardHeader>
-          <CRow>
-            <CCol xs={7}>
-              <div className="d-flex justify-content-end">
-                <CButton color="success" size="lg">
-                  Panggil Antrian Berikutnya
-                </CButton>
-              </div>
+      <CCardGroup>
+        <CCard className="text-white bg-dark py-5" style={{ width: '44%' }}>
+          <CCardBody className="text-center">
+            <CCol>ANTRIAN SAAT INI</CCol>
+            <CCol>
+              <h1 style={{ fontSize: 75 }}>67</h1>
             </CCol>
-            <CCol xs={5}>
-              <div className="d-flex justify-content-start">
-                <CButton color="warning" size="lg">
-                  Lewati
-                </CButton>
-              </div>
+          </CCardBody>
+        </CCard>
+        <CCard className="p-4">
+          <CCardBody>
+            <CCol>
+              <CButton
+                color="info"
+                shape="rounded-pill"
+                className="d-grid gap-2 col-6 mx-auto"
+                size="lg"
+              >
+                Panggil Lagi
+              </CButton>
             </CCol>
-          </CRow>
-        </CCardHeader>
-      </CCard>
+            <CHeaderDivider />
+            <CCol>
+              <CButton
+                color="success"
+                shape="rounded-pill"
+                className="d-grid gap-2 col-6 mx-auto"
+                size="lg"
+              >
+                Panggil Berikutnya
+              </CButton>
+            </CCol>
+            <CHeaderDivider />
+            <CCol>
+              <CButton
+                color="warning"
+                shape="rounded-pill"
+                className="d-grid gap-2 col-6 mx-auto"
+                size="lg"
+              >
+                Lewati Panggilan
+              </CButton>
+            </CCol>
+          </CCardBody>
+        </CCard>
+      </CCardGroup>
+
       <br></br>
       <CCard>
         <CCardHeader>
