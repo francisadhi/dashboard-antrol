@@ -1,12 +1,31 @@
-import { bookingConstants } from '../_constants'
+// import { bookingConstants } from '../_constants'
 
-export function bookings(state = {}, action) {
+// export function bookings(state = {}, action) {
+//   switch (action.type) {
+//     case bookingConstants.BOOKING_GETALL:
+//       return {
+//         bookings: action.booking,
+//       }
+//     default:
+//       return state
+//   }
+// }
+
+const initialState = {
+  booking: [],
+}
+
+export const bookings = (state = initialState, action) => {
   switch (action.type) {
-    case bookingConstants.BOOKING_GETALL:
+    case 'BOOKING_GETALL':
       return {
-        bookings: action.bookings,
+        ...state,
+        booking: action.payload.booking,
       }
+
     default:
       return state
   }
 }
+
+//export default bookingReducer
