@@ -23,6 +23,7 @@ import { connect } from 'react-redux'
 //import PropTypes from 'prop-types'
 //import axios from 'axios'
 import Pagination from '../../../components/Pagination'
+import Modal from '../../../components/AppModal'
 //import { bookings } from 'src/_reducers/booking.reducer'
 //import { DocsCallout, DocsExample } from 'src/components'
 
@@ -34,67 +35,21 @@ class ListBooking extends Component {
     this.state = {
       //bookings: [],
       activeKey: 1,
-      currentPage: 1,
       totalRecords: '',
       totalPages: '',
       pageLimit: '',
       currentPage: '',
       startIndex: '',
       endIndex: '',
+      users: localStorage.getItem('user'),
     }
+    console.log(JSON.parse(this.state.users).firstname)
   }
 
-  componentDidMount() {
+  UNSAFE_componentWillUpdate() {
     this.props.getBook()
   }
-  //======================================================================================
-  /*componentDidMount() {
-    //setInterval(
-    //let newBooking = []
-    axios
-      .get(`http://36.92.135.163:3001/api/bookings`)
-      // API.get(`users/`)
-      .then((res) => {
-        const bookings = res.data
-        //newBooking = res.data
-        this.setState({ bookings })
-        //this.setState({ bookings: [newBooking, ...this.state.bookings] })
-        //console.log(this.state.bookings)
-      })
-    //====================
-    
-    //================
-    //1000,
-    //)
-    //this.interval = setInterval(() => this.setState(this.state.bookings), 1000)
-    // window.location.reload(true)
-  }
-  */
-  // componentDidMount() {
-  //   this.interval = setInterval(() => this.setState({ bookings: this.bookingLst() }), 1000)
-  // }
 
-  // componentWillUnmount() {
-  //   clearInterval(this.interval)
-  // }
-
-  // bookingList() {
-  //   let booking = []
-
-  //   axios
-  //     .get(`http://36.92.135.163:3001/api/bookings`)
-  //     API.get(`users/`)
-  //     .then((res) => {
-  //       const bookings = res.data
-  //       booking = res.data
-  //       this.setState({ bookings })
-  //       this.setState({bookings: [newBooking, ...bookings})
-  //       console.log(bookings)
-  //     })
-
-  //   return booking
-  // }
-  //============================================================================
   showBooking = (bookings) => {
     var result = null
     //console.log(bookings)
@@ -107,9 +62,7 @@ class ListBooking extends Component {
           <CTableDataCell>{booking.FS_NM_PASIEN_BOOK}</CTableDataCell>
           <CTableDataCell>{booking.FS_ALM_PASIEN_BOOK}</CTableDataCell>
           <CTableDataCell>
-            <CButton color="info" shape="rounded-pill">
-              Proses
-            </CButton>
+            <Modal name="PROSES" dt={booking} />
           </CTableDataCell>
         </CTableRow>
       ))
@@ -138,7 +91,8 @@ class ListBooking extends Component {
         <CCol xs={12}>
           <CCard className="mb-4">
             <CCardHeader>
-              <strong>LIST BOOKING PASIEN</strong> <small></small>
+              <strong>LIST BOOKING PASIEN {JSON.parse(this.state.users).firstname}</strong>{' '}
+              <small></small>
             </CCardHeader>
             <CCardBody>
               <CNav variant="tabs">
