@@ -15,15 +15,15 @@ async function login(username, password) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: username, password: password }),
+    body: JSON.stringify({ username: username, password: password }),
   }
 
   // const response = await fetch(`http://36.92.135.163:3001/api/login2`, requestOptions)
-  const response = await fetch(`http://36.92.135.163:3001/api/login2`, requestOptions)
+  const response = await fetch(`http://localhost:8080/api/auth/signin`, requestOptions)
   const user = await handleResponse(response)
   // store user details and jwt token in local storage to keep user logged in between page refreshes
-  localStorage.setItem('user', JSON.stringify(user.response.user))
-  localStorage.setItem('token', user.response.token)
+  localStorage.setItem('user', JSON.stringify(user.user))
+  localStorage.setItem('token', user.token)
   return user
 }
 

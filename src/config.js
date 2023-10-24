@@ -1,4 +1,4 @@
 const config = JSON.stringify({
-  apiUrl: 'http://localhost:3001',
+  apiUrl: 'http://localhost:8080',
 })
 export default config
